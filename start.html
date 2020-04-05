@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <meta http-equiv="Refresh" content="0; url=http://localhost:3000/">
+</head>
+
+<body>
+    <div class="p-3 mt-5 d-flex justify-content-center">
+        <h3>Carregando
+            <div id="dv1"></div>
+            <div id="dv2"></div>
+            <div id="dv3"></div>
+        </h3>
+    </div>
+    <script>
+         setTimeout(function(){ 
+          document.querySelector('#dv1').classList="spinner-grow text-success";
+        }, 0);
+        setTimeout(function(){ 
+          document.querySelector('#dv2').classList="spinner-grow text-success";
+        }, 100);
+        setTimeout(function(){ 
+          document.querySelector('#dv3').classList="spinner-grow text-success";
+        }, 200);
+    </script>
+</body>
+
+</html>
