@@ -1,22 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="src/page/main.css">
-    <title>Projetos</title>
+    <meta http-equiv="Refresh" content="0; url=http://localhost:3000/">
 </head>
 
 <body>
-    <div className="border">
-        <h1> Projetos </h1>
-        <ul>
-            <li><a href="start.html">Jogo do 15</a></li>
-            <li><a href="">News</a></li>
-        </ul>
+    <div class="p-3 mt-5 d-flex justify-content-center">
+        <h3>Carregando
+            <div id="dv1"></div>
+            <div id="dv2"></div>
+            <div id="dv3"></div>
+        </h3>
     </div>
+    <script>
+         setTimeout(function(){ 
+          document.querySelector('#dv1').classList="spinner-grow text-success";
+        }, 0);
+        setTimeout(function(){ 
+          document.querySelector('#dv2').classList="spinner-grow text-success";
+        }, 100);
+        setTimeout(function(){ 
+          document.querySelector('#dv3').classList="spinner-grow text-success";
+        }, 200);
+    </script>
 </body>
 
 </html>
