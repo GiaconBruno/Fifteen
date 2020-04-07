@@ -7,19 +7,20 @@ on:
     branches: [ master ]
 
 jobs:
-  Fifteen:
+  build:
+    name: Fifteen
     runs-on: self-hosted
 
     steps:
-      - uses: actions/checkout@v2
-      
-      - name: Install Dependencies
-          - run: npm install -g create-react-app
-          - run: mkdir actions-runner; cd actions-runner
-          - run: Invoke-WebRequest -Uri https://github.com/actions/runner/releases/download/v2.168.0/actions-runner-win-x64-2.168.0.zip -OutFile actions-runner-win-x64-2.168.0.zip
-          - run: Add-Type -AssemblyName System.IO.Compression.FileSystem ; [System.IO.Compression.ZipFile]::ExtractToDirectory("$PWD/actions-runner-win-x64-2.168.0.zip", "$PWD")
+      - name: My first step
+      - uses: actions/checkout@v2    
+      - name: Use Node.js
+      - run: mkdir actions-runner; cd actions-runner
+      - run: Invoke-WebRequest -Uri https://github.com/actions/runner/releases/download/v2.168.0/actions-runner-win-x64-2.168.0.zip -OutFile actions-runner-win-x64-2.168.0.zip
+      - run: Add-Type -AssemblyName System.IO.Compression.FileSystem ; [System.IO.Compression.ZipFile]::ExtractToDirectory("$PWD/actions-runner-win-x64-2.168.0.zip", "$PWD")
+      - run: npm install create-react-app
       
       - name: Start
-          - run: ./config.cmd --url https://github.com/GiaconBruno/Fifteen --token ANLKIXK2Z4AC4BJGGUZSBTS6RUN4Q
-          - run: ./run.cmd
-          - run: npm run-script start
+      - run: ./config.cmd --url https://github.com/GiaconBruno/Fifteen --token ANLKIXK2Z4AC4BJGGUZSBTS6RUN4Q
+      - run: ./run.cmd
+      - run: npm run-script start
