@@ -24,6 +24,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm i nodemon --save
+    - run: npm i react
     - run: npm run-script build
     - run: npm run-script init
       env:
