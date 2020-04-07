@@ -23,8 +23,8 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - run: yarn build
-    - run: yarn global add serve
-    - run: serve -s build
+    - run: npm i nodemon --save
+    - run: npm build
+    - run: npm start
       env:
         CI: true
