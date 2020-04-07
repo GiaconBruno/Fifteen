@@ -11,9 +11,8 @@ on:
 
 jobs:
   deploy:
-
-    runs-on: windows-latest
-
+    runs-on: self-hosted
+    
     strategy:
       matrix:
         node-version: [12.x]
