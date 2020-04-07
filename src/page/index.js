@@ -7,7 +7,7 @@ export default class Main extends Component {
         titulo: "Game Fifteen",
         subTitulo: "Ordene os campos",
         win: "jogando",
-        box: [1, 2, 3, 4, 5, 6, 7, 8],
+        box: [],
         contagem: 0,
     };
     //Metodo que executa ao carregar componente
@@ -21,7 +21,7 @@ export default class Main extends Component {
         //Carrega variaveis do state
         const { box } = this.state;
         let { contagem, win } = this.state;
-        var num, min = 1, max = 16, i = 8;
+        var num = 0, min = 1, max = 16, i = 0;
         //Gera posicoes aleatorias
         while (i <= 15) {
             min = Math.ceil(min);
@@ -35,7 +35,13 @@ export default class Main extends Component {
             }
         }
         //Converte numeros em string e preenche 16 como vazio.
-        box.map((value, index) => box[index] = ((value === index) && (index === 16)) ? String(index) : String(value));
+        var change11 = "", change14 = "";
+        box.map((value, index) => (value === 11) ? change11 = index : String(value));
+        box.map((value, index) => (value === 14) ? change14 = index : String(value));
+
+        box[change11] = box[change14];
+        box[change14] = "11";
+
         box.map((value, index) => box[index] = (value < 10) ? String("0" + parseInt(value)) : String(value));
         box.map((value, index) => box[index] = (value === "16") ? String(" ") : String(value));
         //Zera cotagem
