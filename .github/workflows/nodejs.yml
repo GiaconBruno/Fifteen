@@ -23,9 +23,8 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - run: npm i nodemon --save
-    - run: npm i react
+    - run: npm install -g create-react-app
     - run: npm run-script build
-    - run: npm run-script init
+    - run: npm run-script start
       env:
         CI: true
