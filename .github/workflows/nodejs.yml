@@ -11,7 +11,7 @@ on:
 
 jobs:
   deploy:
-    runs-on: self-hosted
+    runs-on: windows-latest
     
     strategy:
       matrix:
@@ -24,5 +24,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: yarn build
+    - run: yarn global add serve
+    - run: serve -s build
       env:
         CI: true
