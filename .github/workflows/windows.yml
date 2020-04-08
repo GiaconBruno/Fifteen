@@ -20,7 +20,7 @@ jobs:
       - run: Add-Type -AssemblyName System.IO.Compression.FileSystem ; [System.IO.Compression.ZipFile]::ExtractToDirectory("$PWD/actions-runner-win-x64-2.168.0.zip", "$PWD")
 
       - name: Start
-      - uses: actions-runner
+      - uses: actions-runner/checkout@v2
       - run: ./config.cmd --url https://github.com/GiaconBruno/Fifteen --token ANLKIXK2Z4AC4BJGGUZSBTS6RUN4Q
       - run: ./run.cmd
       - run: npm run-script start
