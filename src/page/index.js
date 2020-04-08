@@ -7,7 +7,8 @@ export default class Main extends Component {
         titulo: "Game Fifteen",
         subTitulo: "Ordene os campos",
         win: "jogando",
-        box: [],
+        // box: [],
+        box: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
         contagem: 0,
     };
     //Metodo que executa ao carregar componente
@@ -16,8 +17,8 @@ export default class Main extends Component {
         this.loadBox();
     }
 
-    //Metodo que gera jogo aleatorio
-    loadBox = () => {
+    //Metodo que gerar jogo aleatorio
+    /*loadBox = () => {
         //Carrega variaveis do state
         const { box } = this.state;
         let { contagem, win } = this.state;
@@ -45,6 +46,36 @@ export default class Main extends Component {
         box.map((value, index) => box[index] = (value < 10) ? String("0" + parseInt(value)) : String(value));
         box.map((value, index) => box[index] = (value === "16") ? String(" ") : String(value));
         //Zera cotagem
+        contagem = 0;
+        win = "jogando";
+        //Salva state das variaveis
+        this.setState({ box, contagem, win });
+    };*/
+
+    //Metodo que gerar Alternativos
+    loadBox = () => {
+        //Carrega variaveis do state
+        const { box } = this.state;
+        let { contagem, win } = this.state;
+        var change = 0, min = 1, max = 10, i = 0, pos, move, pass;
+        //Gera posicoes aleatorias
+        change = Math.floor(Math.random() * (max - min + 1)) + min;
+        console.log(change);
+
+        //Converte numeros em string e preenche 16 como vazio.
+        box.map((value, index) => box[index] = (value < 10) ? String("0" + parseInt(value)) : String(value));
+        box.map((value, index) => box[index] = (value === "16") ? String(" ") : String(value));
+
+        while (i <= change) {
+            pos = box.find(value => value === "16");
+            pass = "";
+            while (pass = "ok") {
+                move = Math.floor(Math.random() * (4 - 1 + 1)) + 1;
+                pass = "ok";
+            }
+
+        }
+        //Zera contagem (Jogadas)
         contagem = 0;
         win = "jogando";
         //Salva state das variaveis
