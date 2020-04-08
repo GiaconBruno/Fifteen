@@ -8,7 +8,7 @@ export default class Main extends Component {
         subTitulo: "Ordene os campos",
         win: "jogando",
         // box: [],
-        box: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
+        box: [],
         contagem: 0,
     };
     //Metodo que executa ao carregar componente
@@ -17,69 +17,68 @@ export default class Main extends Component {
         this.loadBox();
     }
 
-    //Metodo que gerar jogo aleatorio
-    /*loadBox = () => {
-        //Carrega variaveis do state
-        const { box } = this.state;
-        let { contagem, win } = this.state;
-        var num = 0, min = 1, max = 16, i = 0;
-        //Gera posicoes aleatorias
-        while (i <= 15) {
-            min = Math.ceil(min);
-            max = Math.floor(max);
-            num = Math.floor(Math.random() * (max - min + 1)) + min;
-            //verifica se numero gerado ja existe
-            // eslint-disable-next-line 
-            if (num !== (box.find(value => value === num))) {
-                box[i] = num;
-                i++;
-            }
-        }
-        //Converte numeros em string e preenche 16 como vazio.
-        var change11 = "", change14 = "";
-        box.map((value, index) => (value === 11) ? change11 = index : String(value));
-        box.map((value, index) => (value === 14) ? change14 = index : String(value));
-
-        box[change11] = box[change14];
-        box[change14] = "11";
-
-        box.map((value, index) => box[index] = (value < 10) ? String("0" + parseInt(value)) : String(value));
-        box.map((value, index) => box[index] = (value === "16") ? String(" ") : String(value));
-        //Zera cotagem
-        contagem = 0;
-        win = "jogando";
-        //Salva state das variaveis
-        this.setState({ box, contagem, win });
-    };*/
-
-    //Metodo que gerar Alternativos
+    //Metodo que gerar embaralhando
     loadBox = () => {
         //Carrega variaveis do state
-        const { box } = this.state;
         let { contagem, win } = this.state;
-        var change = 0, min = 1, max = 10, i = 0, pos, move, pass;
+        const box = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, " "];
+        // eslint-disable-next-line
+        var change, min = 500, max = 1500, i = 1, pos, pass, move, x;
         //Gera posicoes aleatorias
         change = Math.floor(Math.random() * (max - min + 1)) + min;
-        console.log(change);
 
         //Converte numeros em string e preenche 16 como vazio.
-        box.map((value, index) => box[index] = (value < 10) ? String("0" + parseInt(value)) : String(value));
-        box.map((value, index) => box[index] = (value === "16") ? String(" ") : String(value));
+        box.map((value, index) => box[index] = ((value < 10) && (value !== " ")) ? ("0" + parseInt(value)) : value);
 
         while (i <= change) {
-            pos = box.find(value => value === "16");
-            pass = "";
-            while (pass = "ok") {
-                move = Math.floor(Math.random() * (4 - 1 + 1)) + 1;
-                pass = "ok";
+            pass = 0; move = 0;
+            pos = box.findIndex(value => value === " ");
+
+            while (pass === 0) {
+                //Gera movimento aleatorio
+                pass = 0;
+                move = Math.floor(Math.random() * 4) + 1;
+                //move: 1=box[-1], 2=box[+1], 3=box[-4], 4=box[+4] 
+                //Autoriza movimento
+                ((pos === 0) && ((move !== 1) && (move !== 3))) ? pass++ : pass = pass + 0;
+                ((pos === 3) && ((move !== 2) && (move !== 3))) ? pass++ : pass = pass + 0;
+                ((pos === 12) && ((move !== 1) && (move !== 4))) ? pass++ : pass = pass + 0;
+                ((pos === 15) && ((move !== 2) && (move !== 4))) ? pass++ : pass = pass + 0;
+
+                (((pos === 4) || (pos === 8)) && (move !== 1)) ? pass++ : pass = pass + 0;
+                (((pos === 7) || (pos === 11)) && (move !== 2)) ? pass++ : pass = pass + 0;
+                (((pos === 1) || (pos === 2)) && (move !== 3)) ? pass++ : pass = pass + 0;
+                (((pos === 13) || (pos === 14)) && (move !== 4)) ? pass++ : pass = pass + 0;
+
+                (((pos === 5) || (pos === 6) || (pos === 9) || (pos === 10))) ? pass++ : pass = pass + 0;
             }
 
+            // Realizando o movimento autorizado
+            if (move === 1) {
+                box[pos] = box[pos - 1];
+                box[pos - 1] = String(" ");
+            }
+            if (move === 2) {
+                box[pos] = box[pos + 1];
+                box[pos + 1] = String(" ");
+            }
+            if (move === 3) {
+                box[pos] = box[pos - 4];
+                box[pos - 4] = String(" ");
+            }
+            if (move === 4) {
+                box[pos] = box[pos + 4];
+                box[pos + 4] = String(" ");
+            }
+            //Passa para o proximo CHANGE
+            i++;
         }
         //Zera contagem (Jogadas)
         contagem = 0;
         win = "jogando";
         //Salva state das variaveis
         this.setState({ box, contagem, win });
+
     };
 
     //Metodo de jogar
@@ -304,18 +303,22 @@ export default class Main extends Component {
         const { titulo, subTitulo, box, win, contagem } = this.state;
         // Cria a pagina
         return (
-            <div className="border">
+            <div className="border border-0">
                 <h1> {titulo} </h1>
                 <h3> {subTitulo} </h3>
                 <div className={win}></div>
                 {box.map((values, index) => (
-                    <div key={index} id={index} className="box" onClick={this.playBox}><strong>{values}</strong></div>
+                    <div key={index} id={index} className="box" onClick={this.playBox}>
+                        <strong>{values}</strong></div>
                 ))}
-                <div className="px-1">
-                    <button className="mr-2 mt-3" onClick={this.loadBox}><strong>Reiniciar</strong></button>
-                    <button className="mr-2 mt-3" onClick={this.autoBox} disabled={win === "congrats" || '1=1'}><strong>Auto</strong></button>
-                    <span className="mt-3" >Jogadas: {contagem}</span>
-                </div>
+                <button className="ml-5 my-3 float-left" onClick={this.loadBox}><strong>Reiniciar</strong></button>
+                <button className="mr-5 my-3 float-right" onClick={this.autoBox} disabled={win === "congrats" || '1=1'}>
+                    <div className="d-flex">
+                        <i className="fas fa-cogs fa-lg align-self-center"></i>
+                        <strong> Auto</strong>
+                    </div>
+                </button>
+                <span>Jogadas: {contagem}</span>
             </div>
         )
     }
