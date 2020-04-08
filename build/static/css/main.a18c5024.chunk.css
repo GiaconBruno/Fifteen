@@ -1,0 +1,74 @@
+body {
+    background-color: #27ae60
+}
+
+buttom, h1, h2, h3, h4, h5, spam {
+    font-family: Montserrat;
+    font-weight: 700
+}
+
+.border {
+    width: 280px;
+    margin-top: 5vh;
+    padding: 10px 0 25px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 5px 5px 0 0 rgba(0, 0, 0, .1)
+}
+
+.border, .box {
+    text-align: center
+}
+
+.box {
+    width: 23px;
+    height: auto;
+    padding: 10px;
+    margin: 5px;
+    border: 2px solid #2e8b57;
+    border-radius: 5px;
+    background-color: #2e8b57;
+    box-shadow: 3px 3px 0 0 rgba(0, 0, 0, .1);
+    font-size: 20px;
+    color: #fff;
+    display: inline-flex;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    box-sizing: content-box;
+    box-sizing: initial
+}
+
+.congrats {
+    height: 260px;
+    position: absolute;
+    opacity: .9;
+    cursor: not-allowed;
+    background-color: #fff;
+    background-image: url(../../static/media/fireworks.16fbc143.gif);
+    background-size: cover
+}
+
+.congrats, .jogando {
+    width: 280px
+}
+
+button {
+    display: inline-flex;
+    padding: 5px
+}
+
+button:disabled {
+    opacity: .3;
+    cursor: not-allowed
+}
+
+span {
+    display: inline-flex;
+    position: relative;
+    left: 0
+}
+
+/*# sourceMappingURL=main.a18c5024.chunk.css.map */
