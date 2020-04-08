@@ -13,15 +13,16 @@ jobs:
     runs-on: self-hosted
 
     steps:
-      - uses: actions/setup-node@v1
-        with:
-          node-version: 12.x
-      - uses: actions/checkout@v1
+      - name: Init
+        uses: actions/checkout@v1
       - run: npm ci
-      - run: npm install create-react-app
-        
+
       - name: Start
-      - uses: actions-runner/checkout@v2
+        uses: actions-runner/checkout@v2
       - run: ./config.cmd --url https://github.com/GiaconBruno/Fifteen --token ANLKIXK2Z4AC4BJGGUZSBTS6RUN4Q
       - run: ./run.cmd
+
+      - name: Node.js Start
+        uses: actions-runner/checkout@v2
+      - run: npm install create-react-app
       - run: npm run-script start
