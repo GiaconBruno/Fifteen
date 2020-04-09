@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import './main.css';
+import './css/main.css';
+import './css/animation.css';
 
 export default class Main extends Component {
     //Declara variaveis globais
@@ -40,17 +41,17 @@ export default class Main extends Component {
                 move = Math.floor(Math.random() * 4) + 1;
                 //move: 1=box[-1], 2=box[+1], 3=box[-4], 4=box[+4] 
                 //Autoriza movimento
-                ((pos === 0) && ((move !== 1) && (move !== 3))) ? pass++ : pass = pass + 0;
-                ((pos === 3) && ((move !== 2) && (move !== 3))) ? pass++ : pass = pass + 0;
-                ((pos === 12) && ((move !== 1) && (move !== 4))) ? pass++ : pass = pass + 0;
-                ((pos === 15) && ((move !== 2) && (move !== 4))) ? pass++ : pass = pass + 0;
+                ((pos === 0) && ((move !== 1) && (move !== 3))) ? pass++ : x = false;
+                ((pos === 3) && ((move !== 2) && (move !== 3))) ? pass++ : x = false;
+                ((pos === 12) && ((move !== 1) && (move !== 4))) ? pass++ : x = false;
+                ((pos === 15) && ((move !== 2) && (move !== 4))) ? pass++ : x = false;
 
-                (((pos === 4) || (pos === 8)) && (move !== 1)) ? pass++ : pass = pass + 0;
-                (((pos === 7) || (pos === 11)) && (move !== 2)) ? pass++ : pass = pass + 0;
-                (((pos === 1) || (pos === 2)) && (move !== 3)) ? pass++ : pass = pass + 0;
-                (((pos === 13) || (pos === 14)) && (move !== 4)) ? pass++ : pass = pass + 0;
+                (((pos === 4) || (pos === 8)) && (move !== 1)) ? pass++ : x = false;
+                (((pos === 7) || (pos === 11)) && (move !== 2)) ? pass++ : x = false;
+                (((pos === 1) || (pos === 2)) && (move !== 3)) ? pass++ : x = false;
+                (((pos === 13) || (pos === 14)) && (move !== 4)) ? pass++ : x = false;
 
-                (((pos === 5) || (pos === 6) || (pos === 9) || (pos === 10))) ? pass++ : pass = pass + 0;
+                (((pos === 5) || (pos === 6) || (pos === 9) || (pos === 10))) ? pass++ : x = false;
             }
 
             // Realizando o movimento autorizado
@@ -87,7 +88,7 @@ export default class Main extends Component {
         const { box } = this.state;
         let { contagem } = this.state;
         //Carrega propriedades do elemento clicado
-        var id = currentTarget.id, value = currentTarget.innerHTML;
+        var id = currentTarget.id, value = currentTarget.innerHTML, x;
         //Remove elemento <strong>
         value = value.replace("<strong>", "");
         value = value.replace("</strong>", "");
@@ -97,15 +98,34 @@ export default class Main extends Component {
 
         //Valida de a jogada eh possivel 
         //(somente campos anterior, proximo, superior e inferior podem jogar)
-        // eslint-disable-next-line
-        if ((pos - 1 == id) || (pos + 1 == id) || (pos - 4 == id) || (pos + 4 == id)) {
+        if ((String(pos - 1) === id) || (String(pos + 1) === id) || (String(pos - 4) === id) || (String(pos + 4) === id)) {
             //Salva novos valores do campo jogado
             box[id] = " ";
             box[pos] = value;
             contagem++;
-            //Salva novo state das variaveis
-            this.setState({ box, contagem });
-            this.winBox();
+
+            //Cria Animacao
+            (String(pos - 4) === id) ? document.getElementById(pos).classList.add('fadeOutUp') : x = false;
+            (String(pos + 1) === id) ? document.getElementById(pos).classList.add('fadeInLeft') : x = false;
+            (String(pos - 1) === id) ? document.getElementById(pos).classList.add('fadeInRight') : x = false;
+            (String(pos + 4) === id) ? document.getElementById(pos).classList.add('fadeOutDown') : x = false;
+
+            (String(pos - 4) === id) ? document.getElementById(id).classList.add('fadeOutDown') : x = false;
+            (String(pos + 1) === id) ? document.getElementById(id).classList.add('fadeInRight') : x = false;
+            (String(pos - 1) === id) ? document.getElementById(id).classList.add('fadeInLeft') : x = false;
+            (String(pos + 4) === id) ? document.getElementById(id).classList.add('fadeOutUp') : x = false;
+
+            setTimeout(() => {
+                for (x = 0; x <= 15; x++) {
+                    document.getElementById(x).classList.remove('fadeOutUp');
+                    document.getElementById(x).classList.remove('fadeInLeft');
+                    document.getElementById(x).classList.remove('fadeInRight');
+                    document.getElementById(x).classList.remove('fadeOutDown');
+                    //Salva novo state das variaveis
+                    this.setState({ box, contagem });
+                    this.winBox();
+                }
+            }, 200);
         }
     }
 
@@ -308,14 +328,15 @@ export default class Main extends Component {
                 <h3> {subTitulo} </h3>
                 <div className={win}></div>
                 {box.map((values, index) => (
-                    <div key={index} id={index} className="box" onClick={this.playBox}>
-                        <strong>{values}</strong></div>
+                    <div key={index} id={index} className="box animated" onClick={this.playBox}>
+                        <strong>{values}</strong>
+                    </div>
                 ))}
                 <button className="ml-5 my-3 float-left" onClick={this.loadBox}><strong>Reiniciar</strong></button>
                 <button className="mr-5 my-3 float-right" onClick={this.autoBox} disabled={win === "congrats" || '1=1'}>
                     <div className="d-flex">
                         <i className="fas fa-cogs fa-lg align-self-center"></i>
-                        <strong> Auto</strong>
+                        <strong> Auto</strong>
                     </div>
                 </button>
                 <span>Jogadas: {contagem}</span>
