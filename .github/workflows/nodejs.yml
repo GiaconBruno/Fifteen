@@ -25,7 +25,7 @@ jobs:
     - run: npm install -g create-react-app
     - run: dir
     - run: cd..
-    - run: npm create-react-app Fifteen
+    - run: create-react-app Fifteen
     - run: npm start
     - run: npm publish --access public
     - run: npm build
