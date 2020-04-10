@@ -5,9 +5,7 @@ name: Node.js CI
 
 on:
   push:
-#    branches: [ master ]
-  pull_request:
-#    branches: [ master ]
+    branches: [ master ]
 
 jobs:
   deploy:
@@ -23,7 +21,14 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
+    - run: cd D:\a\Fifteen\Fifteen
     - run: npm install -g create-react-app
-    - run: npm run-script build
+    - run: cd list
+    - run: npm start
+    - run: cd..
+    - run: npm create-react-app Fifteen
+    - run: npm start
+    - run: npm publish --access public
+    - run: npm build
       env:
         CI: true

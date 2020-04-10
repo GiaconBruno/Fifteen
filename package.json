@@ -31,5 +31,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@github.com/GiaconBruno/Fifteen.git",
+    "directory": "packages/name"
   }
 }

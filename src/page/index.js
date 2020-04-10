@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import './css/main.css';
-import './css/animation.css';
+import '../page/css/animation.css';
+import '../page/css/main.css';
 
 export default class Main extends Component {
     //Declara variaveis globais
@@ -8,7 +8,6 @@ export default class Main extends Component {
         titulo: "Game Fifteen",
         subTitulo: "Ordene os campos",
         win: "jogando",
-        // box: [],
         box: [],
         contagem: 0,
     };
@@ -343,9 +342,12 @@ export default class Main extends Component {
                     <span>Jogadas: {contagem}</span>
                 </div>
 
-                <div className="d-flex justify-content-center">
-                    <span classNames="align-middle">Visualizações: </span>
-                    <img src="https://megacontador.com.br/img-W47h9wzYMBQks9VA-7.gif" />
+                <div className="d-flex justify-content-center mt-3">
+                    <span className="align-middle">Visualizações: </span>
+                    <img src="https://megacontador.com.br/img-SNxpCZLlkyz4tJe5-7.gif" alt="" />
+                    {/* TESTE */}
+                    {/* <img src="https://megacontador.com.br/img-W47h9wzYMBQks9VA-7.gif" alt="" /> */}
+
                 </div>
             </div>
         )
