@@ -24,7 +24,6 @@ jobs:
     - run: cd D:\a\Fifteen\Fifteen
     - run: npm install -g create-react-app
     - run: dir
-    - run: npm start
     - run: cd..
     - run: npm create-react-app Fifteen
     - run: npm start
