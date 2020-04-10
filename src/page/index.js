@@ -323,23 +323,30 @@ export default class Main extends Component {
         const { titulo, subTitulo, box, win, contagem } = this.state;
         // Cria a pagina
         return (
-            <div className="border border-0">
-                <h1> {titulo} </h1>
-                <h3> {subTitulo} </h3>
-                <div className={win}></div>
-                {box.map((values, index) => (
-                    <div key={index} id={index} className="box animated" onClick={this.playBox}>
-                        <strong>{values}</strong>
-                    </div>
-                ))}
-                <button className="ml-5 my-3 float-left" onClick={this.loadBox}><strong>Reiniciar</strong></button>
-                <button className="mr-5 my-3 float-right" onClick={this.autoBox} disabled={win === "congrats" || '1=1'}>
-                    <div className="d-flex">
-                        <i className="fas fa-cogs fa-lg align-self-center"></i>
-                        <strong> Auto</strong>
-                    </div>
-                </button>
-                <span>Jogadas: {contagem}</span>
+            <div>
+                <div className="border border-0">
+                    <h1> {titulo} </h1>
+                    <h3> {subTitulo} </h3>
+                    <div className={win}></div>
+                    {box.map((values, index) => (
+                        <div key={index} id={index} className="box animated" onClick={this.playBox}>
+                            <strong>{values}</strong>
+                        </div>
+                    ))}
+                    <button className="ml-5 my-3 float-left" onClick={this.loadBox}><strong>Reiniciar</strong></button>
+                    <button className="mr-5 my-3 float-right" onClick={this.autoBox} disabled={win === "congrats" || '1=1'}>
+                        <div className="d-flex">
+                            <i className="fas fa-cogs fa-lg align-self-center"></i>
+                            <strong> Auto</strong>
+                        </div>
+                    </button>
+                    <span>Jogadas: {contagem}</span>
+                </div>
+
+                <div className="d-flex justify-content-center">
+                    <span classNames="align-middle">Visualizações: </span>
+                    <img src="https://megacontador.com.br/img-W47h9wzYMBQks9VA-7.gif" />
+                </div>
             </div>
         )
     }
