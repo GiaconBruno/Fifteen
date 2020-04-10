@@ -23,8 +23,8 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - run: cd D:\a\Fifteen\Fifteen
     - run: npm install -g create-react-app
-    - run: npm build
-    - run: npm publish --access public
+    - run: npm run-script build
     - run: npm start
+    - run: npm publish --access public
       env:
         CI: true
