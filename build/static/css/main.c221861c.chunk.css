@@ -188,6 +188,14 @@ buttom, h1, h2, h3, h4, h5, spam {
     box-sizing: initial
 }
 
+.box:disabled {
+    opacity: .5
+}
+
+.box:focus {
+    outline: none
+}
+
 .congrats {
     height: 260px;
     position: absolute;
@@ -222,4 +230,4 @@ span {
     color: #fff
 }
 
-/*# sourceMappingURL=main.6dfea878.chunk.css.map */
+/*# sourceMappingURL=main.c221861c.chunk.css.map */

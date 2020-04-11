@@ -28,7 +28,7 @@ export default class Main extends Component {
         change = Math.floor(Math.random() * (max - min + 1)) + min;
 
         //Converte numeros em string e preenche 16 como vazio.
-        box.map((value, index) => box[index] = ((value < 10) && (value !== " ")) ? ("0" + parseInt(value)) : value);
+        box.map((value, index) => box[index] = ((value < 10) && (value !== " ")) ? ("0" + parseInt(value)) : String(value));
 
         while (i <= change) {
             pass = 0; move = 0;
@@ -83,50 +83,73 @@ export default class Main extends Component {
 
     //Metodo de jogar
     playBox = ({ currentTarget }) => {
-        //Carrega variaveis do state
-        const { box } = this.state;
-        let { contagem } = this.state;
-        //Carrega propriedades do elemento clicado
-        var id = currentTarget.id, value = currentTarget.innerHTML, x;
-        //Remove elemento <strong>
-        value = value.replace("<strong>", "");
-        value = value.replace("</strong>", "");
-        //Localiza posicao do campo de valor vazio
-        // box.find((value, index) => (value === " ") ? pos = index : false);
-        var pos = box.findIndex((value) => (value === " "));
+        if (currentTarget.disabled === false) {
+            //Carrega variaveis do state
+            const { box } = this.state;
+            let { contagem } = this.state;
+            //Carrega propriedades do elemento clicado
+            var id = parseInt(currentTarget.id), value = currentTarget.innerHTML, pass = 0, x;
 
-        //Valida de a jogada eh possivel 
-        //(somente campos anterior, proximo, superior e inferior podem jogar)
-        if ((String(pos - 1) === id) || (String(pos + 1) === id) || (String(pos - 4) === id) || (String(pos + 4) === id)) {
-            //Salva novos valores do campo jogado
-            box[id] = " ";
-            box[pos] = value;
-            contagem++;
+            //Remove elemento <strong>
+            value = value.replace("<strong>", "");
+            value = value.replace("</strong>", "");
+            value = value.replace(/amp;/g, "");
+            value = value.replace(/&nbsp;/g, "");
+            //Localiza posicao do campo de valor vazio
+            // box.find((value, index) => (value === " ") ? pos = index : false);
+            var pos = box.findIndex((value) => (value === " "));
 
-            //Cria Animacao
-            (String(pos - 4) === id) ? document.getElementById(pos).classList.add('fadeOutUp') : x = false;
-            (String(pos + 1) === id) ? document.getElementById(pos).classList.add('fadeInLeft') : x = false;
-            (String(pos - 1) === id) ? document.getElementById(pos).classList.add('fadeInRight') : x = false;
-            (String(pos + 4) === id) ? document.getElementById(pos).classList.add('fadeOutDown') : x = false;
+            // Valida de a jogada eh possivel 
+            //(somente campos anterior, proximo, superior e inferior podem jogar)
+            ((pos === 0) && ((id === (pos + 1)) || (id === (pos + 4)))) ? pass++ : x = false;
+            ((pos === 3) && ((id === (pos - 1)) || (id === (pos + 4)))) ? pass++ : x = false;
+            ((pos === 12) && ((id === (pos + 1)) || (id === (pos - 4)))) ? pass++ : x = false;
+            ((pos === 15) && ((id === (pos - 1)) || (id === (pos - 4)))) ? pass++ : x = false;
 
-            (String(pos - 4) === id) ? document.getElementById(id).classList.add('fadeOutDown') : x = false;
-            (String(pos + 1) === id) ? document.getElementById(id).classList.add('fadeInRight') : x = false;
-            (String(pos - 1) === id) ? document.getElementById(id).classList.add('fadeInLeft') : x = false;
-            (String(pos + 4) === id) ? document.getElementById(id).classList.add('fadeOutUp') : x = false;
+            (((pos === 1) || (pos === 2)) && ((id === (pos - 1)) || (id === (pos + 1)) || (id === (pos + 4)))) ? pass++ : x = false;
+            (((pos === 4) || (pos === 8)) && ((id === (pos + 1)) || (id === (pos - 4)) || (id === (pos + 4)))) ? pass++ : x = false;
+            (((pos === 7) || (pos === 11)) && ((id === (pos - 1)) || (id === (pos - 4)) || (id === (pos + 4)))) ? pass++ : x = false;
+            (((pos === 13) || (pos === 14)) && ((id === (pos + 1)) || (id === (pos - 1)) || (id === (pos - 4)))) ? pass++ : x = false;
 
-            setTimeout(() => {
-                for (x = 0; x <= 15; x++) {
-                    document.getElementById(x).classList.remove('fadeOutUp');
-                    document.getElementById(x).classList.remove('fadeInLeft');
-                    document.getElementById(x).classList.remove('fadeInRight');
-                    document.getElementById(x).classList.remove('fadeOutDown');
+            (((pos === 5) || (pos === 6) || (pos === 9) || (pos === 10)) && ((id === (pos - 1)) || (id === (pos + 1)) || (id === (pos - 4)) || (id === (pos + 4)))) ? pass++ : x = false;
+
+            //Desabilitar botao
+            (pass > 0) ? document.querySelectorAll('.box')[pos].disabled = true : x = false;
+            if (pass > 0) {
+                //Salva novos valores do campo jogado
+                box[id] = " ";
+                box[pos] = value;
+                contagem++;
+                //Cria Animacao
+                ((pos - 4) === id) ? document.getElementById(pos).classList.add('fadeOutUp') : x = false;
+                ((pos + 1) === id) ? document.getElementById(pos).classList.add('fadeInLeft') : x = false;
+                ((pos - 1) === id) ? document.getElementById(pos).classList.add('fadeInRight') : x = false;
+                ((pos + 4) === id) ? document.getElementById(pos).classList.add('fadeOutDown') : x = false;
+
+                ((pos - 4) === id) ? document.getElementById(id).classList.add('fadeOutDown') : x = false;
+                ((pos + 1) === id) ? document.getElementById(id).classList.add('fadeInRight') : x = false;
+                ((pos - 1) === id) ? document.getElementById(id).classList.add('fadeInLeft') : x = false;
+                ((pos + 4) === id) ? document.getElementById(id).classList.add('fadeOutUp') : x = false;
+
+
+                setTimeout(() => {
+                    for (x = 0; x <= 15; x++) {
+                        document.getElementById(x).classList.remove('fadeOutUp');
+                        document.getElementById(x).classList.remove('fadeInLeft');
+                        document.getElementById(x).classList.remove('fadeInRight');
+                        document.getElementById(x).classList.remove('fadeOutDown');
+                    }
                     //Salva novo state das variaveis
                     this.setState({ box, contagem });
                     this.winBox();
-                }
-            }, 200);
+                    document.querySelectorAll('.box')[pos].disabled = false;
+                }, 180);
+                pass = 0;
+            }
+            document.querySelectorAll('.box')[id].disabled = false;
         }
     }
+
 
     //Verifica se Ganhou
     winBox = () => {
@@ -328,9 +351,9 @@ export default class Main extends Component {
                     <h3> {subTitulo} </h3>
                     <div className={win}></div>
                     {box.map((values, index) => (
-                        <div key={index} id={index} className="box animated" onClick={this.playBox}>
+                        <button key={index} id={index} className="box animated" onClick={this.playBox}>
                             <strong>{values}</strong>
-                        </div>
+                        </button>
                     ))}
                     <button className="ml-5 my-3 float-left" onClick={this.loadBox}><strong>Reiniciar</strong></button>
                     <button className="mr-5 my-3 float-right" onClick={this.autoBox} disabled={win === "congrats" || '1=1'}>

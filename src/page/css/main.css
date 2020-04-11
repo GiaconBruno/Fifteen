@@ -35,6 +35,14 @@ h1, h2, h3, h4, h5, spam, buttom {
     box-sizing: initial;
 }
 
+.box:disabled {
+    opacity: 0.5;
+}
+
+.box:focus {
+    outline: none;
+}
+
 .congrats {
     width: 280px;
     height: 260px;
