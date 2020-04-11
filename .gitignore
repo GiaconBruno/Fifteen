@@ -2,7 +2,7 @@
 
 # dependencies
 #/node_modules
-/node_modules/.cache_
+/node_modules/.cache
 /.vscode
 /.pnp
 .pnp.js
